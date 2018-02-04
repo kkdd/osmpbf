@@ -117,6 +117,8 @@ type Decoder struct {
 	// for data decoders
 	inputs  []chan<- pair
 	outputs []<-chan pair
+
+	totalreadsize  int64  // Total data size have been read
 }
 
 // NewDecoder returns a new decoder that reads from r.
@@ -254,6 +256,8 @@ func (dec *Decoder) readFileBlock() (*OSMPBF.BlobHeader, *OSMPBF.Blob, error) {
 	if err != nil {
 		return nil, nil, err
 	}
+
+	dec.totalreadsize += int64(blobHeaderSize) + int64(blobHeader.GetDatasize())
 
 	return blobHeader, blob, err
 }
