@@ -131,6 +131,11 @@ func NewDecoder(r io.Reader) *Decoder {
 	return d
 }
 
+// Total data size have been read
+func (dec *Decoder) GetTotalReadSize() int64 {
+        return dec.totalreadsize
+}
+
 // SetBufferSize sets initial size of decoding buffer. Default value is 1MB, you can set higher value
 // (for example, MaxBlobSize) for (probably) faster decoding, or lower value for reduced memory consumption.
 // Any value will produce valid results; buffer will grow automatically if required.
